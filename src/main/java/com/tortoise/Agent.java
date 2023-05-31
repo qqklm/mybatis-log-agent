@@ -9,7 +9,7 @@ import java.lang.instrument.Instrumentation;
 public class Agent {
 // -javaagent:D:\work\mybatis-log-agent\target\mybatis-log-agent-1.0-jar-with-dependencies.jar=druid
 
-    public static void agentmain(String arg, Instrumentation instrumentation) {
+    public static void premain(String arg, Instrumentation instrumentation) {
         // 使用Druid数据源
         if ("druid".equals(arg)) {
             instrumentation.addTransformer(new DruidMyBatisConsoleLog());
