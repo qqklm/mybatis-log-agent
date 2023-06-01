@@ -18,6 +18,13 @@
             <artifactId>javassist</artifactId>
             <version>3.29.2-GA</version>
         </dependency>
+        <!-- 只用到了SQL格式化功能 -->
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>druid</artifactId>
+            <version>1.2.18</version>
+        </dependency>
+
     </dependencies>
     <build>
         <plugins>
