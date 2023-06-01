@@ -44,7 +44,8 @@ public class HikariMyBatisConsoleLog implements ClassFileTransformer {
                             "System.out.println(\"............................................................................\"); \r\n" +
                                     "String str = statement.toString();\r\n" +
                                     "String sql = str.substring(str.indexOf(\":\") + 1);\r\n" +
-                                    "System.out.println(sql);\r\n" +
+                                    "String dbType = statement.getConnection().getMetaData().getDatabaseProductName().toLowerCase();\r\n" +
+                                    "System.out.println(com.alibaba.druid.sql.SQLUtils.format(sql, dbType));\r\n" +
                                     "System.out.println(\"............................................................................\"); \r\n"
                     );
                 }

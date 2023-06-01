@@ -36,7 +36,6 @@ public class DruidMyBatisConsoleLog implements ClassFileTransformer {
             CtMethod[] declaredMethods = ctClass.getDeclaredMethods("parameterize");
 
             for (CtMethod declaredMethod : declaredMethods) {
-                System.out.println(declaredMethod.getSignature());
                 // 只处理void parameterize(Statement statement)方法
                 if (Objects.equals("(Ljava/sql/Statement;)V", declaredMethod.getSignature())) {
                     // 插入自定义逻辑
@@ -53,13 +52,13 @@ public class DruidMyBatisConsoleLog implements ClassFileTransformer {
                                     "}\r\n" +
                                     "}\r\n" +
                                     "}\r\n" +
-                                    "System.out.println(sql);\r\n" +
+                                    "String dbType = ((com.alibaba.druid.proxy.jdbc.PreparedStatementProxyImpl) ((com.alibaba.druid.pool.DruidPooledPreparedStatement) ((org.apache.ibatis.logging.jdbc.PreparedStatementLogger) java.lang.reflect.Proxy.getInvocationHandler(statement)).getPreparedStatement()).getRawStatement()).getSqlStat().getDbType();\r\n" +
+                                    "System.out.println(com.alibaba.druid.sql.SQLUtils.format(sql, dbType));\r\n" +
                                     "System.out.println(\"............................................................................\"); \r\n"
                     );
                 }
             }
             return ctClass.toBytecode();
-
         } catch (Exception e) {
             e.printStackTrace();
         }
