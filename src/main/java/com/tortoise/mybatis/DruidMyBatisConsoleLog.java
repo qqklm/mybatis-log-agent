@@ -1,14 +1,13 @@
-package com.tortoise;
+package com.tortoise.mybatis;
 
 
 import java.lang.instrument.ClassFileTransformer;
-import java.lang.instrument.IllegalClassFormatException;
 import java.security.ProtectionDomain;
 
 /**
  * MyBatis 控制台日志，只支持Druid代理的数据源
  */
-public class DruidMyBatisConsoleLog implements ClassFileTransformer, AgentString {
+public class DruidMyBatisConsoleLog implements ClassFileTransformer, DefaultTransform {
     @Override
     public String agent() {
         return "System.out.println(\"............................................................................\"); \r\n" +
@@ -30,7 +29,7 @@ public class DruidMyBatisConsoleLog implements ClassFileTransformer, AgentString
     }
 
     @Override
-    public byte[] transform(ClassLoader loader, String className, Class<?> classBeingRedefined, ProtectionDomain protectionDomain, byte[] classfileBuffer) throws IllegalClassFormatException {
-        return defaultTransform(loader, className, classBeingRedefined, protectionDomain, classfileBuffer);
+    public byte[] transform(ClassLoader loader, String className, Class<?> classBeingRedefined, ProtectionDomain protectionDomain, byte[] classfileBuffer) {
+        return defaultTransform( className, classfileBuffer);
     }
 }

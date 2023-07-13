@@ -1,24 +1,22 @@
-package com.tortoise;
+package com.tortoise.mybatis;
 
 import javassist.ClassPool;
 import javassist.CtClass;
 import javassist.CtMethod;
 
-import java.lang.instrument.IllegalClassFormatException;
-import java.security.ProtectionDomain;
 import java.util.Objects;
 
 /**
  * @author wb
  * date 2023/6/1 16:14
  */
-public interface AgentString {
+public interface DefaultTransform {
     /**
      * agent逻辑
      */
     String agent();
 
-    default byte[] defaultTransform(ClassLoader loader, String className, Class<?> classBeingRedefined, ProtectionDomain protectionDomain, byte[] classfileBuffer) throws IllegalClassFormatException {
+    default byte[] defaultTransform(String className, byte[] classfileBuffer) {
         //java自带的方法不进行处理
         if (className.startsWith("java") || className.startsWith("sun")) {
             return classfileBuffer;
